@@ -1,0 +1,18 @@
+version: '3'
+services:
+  my-node-app:
+    platform: linux/amd64
+    image: duozhang/my-calculator:latest
+    ports:
+      - "8037:3000"
+    environment:
+      - PORT=8037
+    deploy:
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
